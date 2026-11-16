@@ -1,0 +1,92 @@
+/* etapas lado a lado; cada uma com uma barra do tamanho dos seus dias numa régua de 45 */
+.linha-dias {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: clamp(48px, 9svh, 96px) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--fio);
+}
+.etapa {
+  position: relative;
+  padding: 34px 22px 0;
+  border-left: 1px solid var(--fio);
+}
+.etapa:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+.etapa-barra {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--ceu-1);
+  transform-origin: left;
+}
+.etapa-dia {
+  margin: 0 0 14px;
+  font-size: var(--mono-sm);
+  letter-spacing: 0.04em;
+  color: var(--ceu-1);
+}
+.etapa h3 {
+  margin: 0 0 12px;
+  font-size: clamp(1.15rem, 1.6vw, 1.55rem);
+  font-weight: 520;
+  letter-spacing: -0.03em;
+}
+.etapa p:last-child {
+  max-width: 34ch;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--tinta-2);
+}
+.etapas-pe {
+  display: flex;
+  justify-content: space-between;
+  margin: 40px 0 0;
+  padding-top: 14px;
+  border-top: 1px dashed var(--fio);
+  font-size: var(--mono-sm);
+  letter-spacing: 0.04em;
+  color: var(--tinta-2);
+}
+
+/* a barra cresce com a entrada da etapa */
+.mo .etapa .etapa-barra {
+  transform: scaleX(0);
+  transition: transform 1.2s var(--ease-saida) calc(var(--i) * 140ms + 0.2s);
+}
+.mo .etapa.visto .etapa-barra {
+  transform: scaleX(1);
+}
+
+@media (max-width: 760px) {
+  .linha-dias {
+    grid-template-columns: 1fr;
+    border-top: 0;
+  }
+  .etapa,
+  .etapa:first-child {
+    padding: 22px 0 26px 22px;
+    border-left: 1px solid var(--fio);
+  }
+  .etapa-barra {
+    top: 0;
+    left: -2px;
+    width: 3px;
+    height: 100%;
+    transform-origin: top;
+  }
+  .mo .etapa .etapa-barra {
+    transform: scaleY(0);
+  }
+  .mo .etapa.visto .etapa-barra {
+    transform: scaleY(1);
+  }
+}

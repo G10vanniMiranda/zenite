@@ -46,7 +46,7 @@ export const hero = () => `
         </h1>
         <div class="hero-lado">
           <p class="lead" data-e>${linhas.map((l) => `<span class="ln"><span>${l}</span></span>`).join(' ')}</p>
-          <a class="pill" href="#sistema" data-e><span>Simular minha conta</span><span class="pill-c">${seta}</span></a>
+          <a class="pill" href="#simulacao" data-e><span>Simular minha conta</span><span class="pill-c">${seta}</span></a>
         </div>
       </div>
       <p class="dica mono" aria-hidden="true" data-e>[ role para ver o sistema ]</p>

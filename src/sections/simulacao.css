@@ -1,0 +1,177 @@
+/* a única seção escura: tinta, com o céu de cima entrando pela borda */
+.simulacao {
+  margin-top: clamp(88px, 16svh, 168px);
+  padding-bottom: clamp(72px, 13svh, 140px);
+  background:
+    radial-gradient(90% 60% at 85% 0%, rgba(58, 120, 180, 0.35), transparent 70%),
+    var(--tinta);
+  color: var(--creme);
+}
+.simulacao .rot,
+.simulacao .sim-escala,
+.simulacao .sim-saidas dt,
+.simulacao .sim-cta p {
+  color: rgba(250, 246, 238, 0.66);
+}
+.simulacao :focus-visible {
+  outline-color: var(--creme);
+}
+
+.sim {
+  margin-top: clamp(40px, 7svh, 72px);
+}
+.sim-rot {
+  display: block;
+  font-size: var(--mono-sm);
+  letter-spacing: 0.04em;
+  color: rgba(250, 246, 238, 0.66);
+}
+.sim-conta {
+  margin: 10px 0 0;
+  font-size: clamp(2.6rem, 8vw, 7.5rem);
+  font-weight: 540;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.sim-seta {
+  color: var(--ceu-3);
+}
+[data-sim='nova'] {
+  color: #f6c768;
+}
+
+/* slider: trilho fino, polegar creme grande */
+.sim-range {
+  --pos: 32%;
+  width: 100%;
+  height: 44px;
+  margin: 26px 0 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.sim-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #f6c768 var(--pos), rgba(250, 246, 238, 0.22) var(--pos));
+}
+.sim-range::-moz-range-track {
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(250, 246, 238, 0.22);
+}
+.sim-range::-moz-range-progress {
+  height: 4px;
+  border-radius: 4px;
+  background: #f6c768;
+}
+.sim-range::-webkit-slider-thumb {
+  width: 30px;
+  height: 30px;
+  margin-top: -13px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--creme);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.sim-range::-moz-range-thumb {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--creme);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+}
+.sim-range:focus-visible {
+  outline-offset: 4px;
+}
+.sim-escala {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: var(--mono-sm);
+}
+
+.sim-saidas {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin: clamp(36px, 6svh, 60px) 0 0;
+  border-top: 1px solid rgba(250, 246, 238, 0.16);
+  border-bottom: 1px solid rgba(250, 246, 238, 0.16);
+}
+.sim-saidas > div {
+  padding: 18px 18px 22px;
+  border-left: 1px solid rgba(250, 246, 238, 0.16);
+}
+.sim-saidas > div:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+.sim-saidas dt {
+  margin-bottom: 14px;
+  font-size: var(--mono-sm);
+  letter-spacing: 0.04em;
+}
+.sim-saidas dd {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.5vw, 1.5rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+}
+
+.sim-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 26px;
+  margin-top: clamp(32px, 6svh, 56px);
+}
+.sim-cta p {
+  max-width: 52ch;
+  margin: 0;
+  font-size: var(--mono-sm);
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 1000px) {
+  .sim-saidas {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .sim-saidas > div:nth-child(4) {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .sim-saidas > div:nth-child(n + 4) {
+    border-top: 1px solid rgba(250, 246, 238, 0.16);
+  }
+}
+@media (max-width: 760px) {
+  .sim-saidas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .sim-saidas > div,
+  .sim-saidas > div:nth-child(4) {
+    padding: 16px 14px 18px;
+    border-left: 1px solid rgba(250, 246, 238, 0.16);
+  }
+  .sim-saidas > div:nth-child(odd) {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .sim-saidas > div:nth-child(n + 3) {
+    border-top: 1px solid rgba(250, 246, 238, 0.16);
+  }
+  .sim-cta .pill {
+    white-space: normal;
+    height: auto;
+    min-height: var(--pill-h);
+    padding-block: 7px;
+  }
+}

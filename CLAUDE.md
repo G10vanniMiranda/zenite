@@ -67,6 +67,13 @@ Filtros: longe `saturate(.78) brightness(1.03) contrast(.86)`; horizonte `satura
 céu 0 s (1,4 s, `power2.inOut`) · longe 0,3 s (de y 40) · horizonte 0,45 s (de y 70) · ilha 0,6 s (de y 0,2·A e escala 0,94, 2,8 s, `power3.out`) · frente 0,8 s (de y 130) · letras 1,15 s (`yPercent` 115 → 0, 1,4 s, 65 ms entre letras) · nav e HUD 1,3 s · contagem do HUD 1,3 s (1,9 s, `power2.out`) · linhas do texto 1,4 s · asterisco 1,55 s (de escala 0 e −140°) · botão 1,7 s · dica 2,3 s.
 Estado inicial aplicado antes do primeiro quadro (`gsap.set`), senão a cena pisca pronta antes de entrar.
 
+## Seções depois do hero
+Ordem: `fecho` (#sistema) · `etapas` (#como-funciona) · `simulacao` (#simulacao, a única escura) · `sistemas` (#sistemas) · `duvidas` (#duvidas) · `contato` (#contato, céu de volta + rodapé). Cada uma em `src/sections/`, com o padrão `.secao` + `.rot` + `.titulo-sec` de `base.css`.
+- A conta da simulação e da tabela de sistemas é uma só: `simular()` em `src/data/simulacao.js`. Ela precisa continuar dando os números da casa do topo (R$ 780 → R$ 86, 10 painéis, 2 anos e 9 meses); `npm test` confere.
+- Contato e WhatsApp em `src/data/empresa.js`. O formulário só abre o WhatsApp; nada vai para servidor.
+- Entrada ao rolar: `data-r` (+ `--i` para atraso) e `src/motion/revelar.js`. Só `opacity`/`transform`; com movimento reduzido não roda.
+- Planos e pendências em `ROADMAP.md`.
+
 ## Regras de qualidade
 - Mobile tão cuidado quanto desktop; nada de rolagem horizontal.
 - Ilha com `fetchpriority="high"` e `preload`. As nuvens são pequenas (13–47 KB).

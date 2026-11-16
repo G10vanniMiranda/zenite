@@ -50,8 +50,21 @@ svg {
   outline-offset: 3px;
   border-radius: 6px;
 }
-.fecho :focus-visible {
+.fecho :focus-visible,
+.secao :focus-visible {
   outline-color: var(--tinta);
+}
+
+/* marca pequena com asterisco (rodapé) */
+.marca {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 2px;
+}
+.ast-mini {
+  width: 0.62em;
+  height: 0.62em;
+  margin-top: 0.05em;
 }
 
 /* esconde a cena até o GSAP aplicar o estado inicial (a tela começa na névoa) */
@@ -133,4 +146,47 @@ svg {
   70% { transform: translate3d(-55px, 14px, 0); }
   80% { transform: translate3d(44px, -89px, 0); }
   90% { transform: translate3d(-71px, 66px, 0); }
+}
+
+/* seções depois do hero: rótulo em mono + título grande, margens iguais às do hero */
+.secao {
+  position: relative;
+  padding: clamp(88px, 16svh, 168px) var(--margem) 0;
+  scroll-margin-top: 0;
+}
+.rot {
+  margin: 0 0 22px;
+  font-size: var(--mono-sm);
+  letter-spacing: 0.04em;
+  color: var(--tinta-2);
+}
+.titulo-sec {
+  max-width: 16ch;
+  margin: 0;
+  font-size: clamp(2rem, 4.4vw, 4.6rem);
+  font-weight: 520;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+.sub-sec {
+  max-width: 46ch;
+  margin: 22px 0 0;
+  font-size: clamp(1rem, 1.25vw, 1.2rem);
+  line-height: 1.45;
+  color: var(--tinta-2);
+}
+
+/* entrada das seções ao rolar (revelar.js); sem JS de movimento, tudo já aparece */
+.mo [data-r] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 0.9s var(--ease-saida),
+    transform 0.9s var(--ease-saida);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.mo [data-r].visto {
+  opacity: 1;
+  transform: none;
 }
