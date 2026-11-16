@@ -1,0 +1,38 @@
+:root {
+  /* céu, de cima para o horizonte */
+  --ceu-1: #2b66a3;
+  --ceu-2: #3a78b4;
+  --ceu-3: #6f9ec9;
+  --ceu-4: #b7c8d6;
+  --ceu-5: #ead9c2;
+  --nevoa: #f3e3c8;
+
+  --creme: #faf6ee;
+  --creme-2: #f1e7d6;
+  --tinta: #14233a;
+  --tinta-2: #3b4a60;
+  --fio: rgba(20, 35, 58, 0.16);
+
+  --f-sans: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --wdth: 'wdth' 106;
+
+  --margem: clamp(16px, 2.3vw, 40px);
+  --nome: min(17.6vw, 31svh);
+  --texto-hero: clamp(1rem, 1.38vw, 1.4rem);
+  --hud: 12.5px;
+  --mono-sm: 11.5px;
+  --sombra-texto: 0 1px 2px rgba(20, 35, 58, 0.32), 0 2px 18px rgba(20, 35, 58, 0.55);
+
+  --pill-h: 52px;
+  --pill-c: 38px;
+  --ease-saida: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (max-width: 760px) {
+  :root {
+    --nome: 29vw;
+    --texto-hero: 16px;
+    --hud: 11px;
+  }
+}

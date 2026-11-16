@@ -1,0 +1,385 @@
+/* palco preso: o hero tem 200svh e o palco fica parado nos primeiros 100svh de rolagem */
+.hero {
+  position: relative;
+  height: 200svh;
+}
+.palco {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--nevoa);
+  color: var(--creme);
+}
+
+.camada,
+.camada-in,
+.nuvens,
+.sombra,
+.sombra-in,
+.sombra-pinta,
+.hero-texto,
+.hud,
+.veu {
+  position: absolute;
+  inset: 0;
+}
+.camada,
+.sombra,
+.hud,
+.veu,
+.hero-texto {
+  pointer-events: none;
+}
+.camada {
+  will-change: transform;
+}
+
+/* 1. céu */
+.ceu {
+  position: absolute;
+  inset: -3% -3% -14%;
+  background: var(--nevoa);
+}
+.ceu::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: calc(100% * 103 / 117); /* do topo (-3%) até a base do palco; abaixo continua a névoa */
+  background:
+    radial-gradient(circle at 90% 3%, rgba(255, 247, 230, 0.7) 0, rgba(255, 238, 206, 0.32) 14%, rgba(255, 238, 206, 0) 40%),
+    radial-gradient(70% 24% at 62% 71%, rgba(255, 226, 186, 0.5), rgba(255, 226, 186, 0)),
+    linear-gradient(180deg, var(--ceu-1) 0%, var(--ceu-2) 20%, var(--ceu-3) 42%, var(--ceu-4) 58%, var(--ceu-5) 72%, var(--nevoa) 88%);
+}
+.serra {
+  position: absolute;
+  left: -3%;
+  width: 106%;
+  top: 48%;
+  height: 12%;
+  fill: #9cb0c9;
+  opacity: 0.42;
+  filter: blur(1.5px);
+  -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 92%);
+  mask-image: linear-gradient(180deg, #000 30%, transparent 92%);
+}
+
+/* nuvens: a caixa anda (deriva), a imagem leva o tom, o desfoque e o espelho */
+.nuvem {
+  position: absolute;
+  left: 0;
+  will-change: transform;
+  animation: deriva linear infinite;
+}
+.nuvem img {
+  width: 100%;
+  height: 100%;
+  filter: var(--filtro, none);
+}
+.nuvem img.e {
+  transform: scaleX(-1);
+}
+@keyframes deriva {
+  from {
+    transform: translate3d(var(--de), 0, 0);
+  }
+  to {
+    transform: translate3d(var(--ate), 0, 0);
+  }
+}
+.c-longe {
+  --filtro: saturate(0.78) brightness(1.03) contrast(0.86) blur(var(--blur));
+}
+.c-horizonte {
+  --filtro: saturate(0.9) contrast(0.92) blur(var(--blur));
+}
+.c-muro {
+  --filtro: brightness(1.07) saturate(0.85) blur(var(--blur));
+}
+
+/* faixas de névoa: a ponta de baixo fica sempre fora da tela */
+.faixa {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+}
+.faixa-h {
+  top: 64%;
+  bottom: -200%;
+  background: linear-gradient(
+    180deg,
+    rgba(232, 214, 196, 0) 0,
+    rgba(232, 214, 196, 0.5) 12svh,
+    rgba(232, 214, 196, 0.95) 30svh
+  );
+}
+.faixa-f {
+  top: 80%;
+  bottom: -300%;
+  background: linear-gradient(
+    180deg,
+    rgba(232, 216, 200, 0) 0,
+    rgba(232, 216, 200, 0.5) 9svh,
+    rgba(232, 216, 200, 0.85) 22svh
+  );
+}
+.faixa-m {
+  top: 74%;
+  bottom: -200%;
+  background: linear-gradient(
+    180deg,
+    rgba(241, 231, 214, 0) 0,
+    rgba(241, 231, 214, 0.7) 12svh,
+    var(--creme-2) 26svh
+  );
+}
+
+/* 4. ilha */
+.c-ilha,
+.c-ilha > .camada-in {
+  transform-origin: 51.5% 40.5%;
+}
+.ilha {
+  position: absolute;
+  left: 51.5%;
+  top: 40.5%;
+  width: min(62vw, 96svh);
+  aspect-ratio: 1446 / 994;
+  transform: translate(-50%, -50%);
+}
+.ilha-flutua {
+  position: absolute;
+  inset: 0;
+  animation: flutua 7.5s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.ilha-flutua img {
+  width: 100%;
+  height: 100%;
+  filter: saturate(0.88) contrast(0.96);
+}
+@keyframes flutua {
+  from {
+    transform: translate3d(0, -0.8%, 0) rotate(-0.3deg);
+  }
+  to {
+    transform: translate3d(0, 0.8%, 0) rotate(0.3deg);
+  }
+}
+/* perspectiva aérea: a própria ilha como máscara */
+.ilha-tom {
+  position: absolute;
+  inset: 0;
+  -webkit-mask: url(/img/ilha.webp) center / 100% 100% no-repeat;
+  mask: url(/img/ilha.webp) center / 100% 100% no-repeat;
+  background:
+    linear-gradient(90deg, rgba(58, 120, 180, 0.16) 0%, rgba(58, 120, 180, 0.06) 30%, rgba(58, 120, 180, 0) 55%),
+    linear-gradient(180deg, rgba(243, 227, 200, 0) 72%, rgba(243, 227, 200, 0.16) 76%, rgba(243, 227, 200, 0.36) 100%);
+}
+.ilha-nevoa {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 52%;
+  bottom: -18%;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(243, 227, 200, 0.6), rgba(243, 227, 200, 0.25) 55%, rgba(243, 227, 200, 0));
+  filter: blur(26px);
+}
+
+/* 6. sombra de nuvem: parada, do tamanho do palco */
+.sombra-pinta {
+  background:
+    radial-gradient(34% 30% at 84% 82%, rgba(22, 36, 60, 0.4), rgba(22, 36, 60, 0.2) 50%, rgba(22, 36, 60, 0)),
+    radial-gradient(42% 30% at 24% 86%, rgba(22, 36, 60, 0.2), rgba(22, 36, 60, 0.1) 50%, rgba(22, 36, 60, 0)),
+    linear-gradient(0deg, rgba(22, 36, 60, 0.3), rgba(22, 36, 60, 0.12) 16%, rgba(22, 36, 60, 0) 34%);
+}
+
+/* 7. HUD */
+.hud {
+  font-size: var(--hud);
+  line-height: 1.5;
+  color: var(--creme);
+  text-shadow: 0 1px 2px rgba(20, 35, 58, 0.3), 0 1px 12px rgba(20, 35, 58, 0.35);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+.hud p {
+  position: absolute;
+  top: 20px;
+  margin: 0;
+}
+.hud-l {
+  left: var(--margem);
+  display: flex;
+  flex-direction: column;
+}
+.hud-r {
+  right: var(--margem);
+}
+
+/* 7. texto */
+.hero-grade {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  align-content: end;
+  column-gap: 4vw;
+  padding: 0 var(--margem) 7.4svh;
+}
+.hero-grade a {
+  pointer-events: auto;
+}
+.nome {
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  font-size: var(--nome);
+  font-weight: 560;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  color: var(--creme);
+  white-space: nowrap;
+}
+.nome-linha {
+  display: block;
+  overflow: hidden;
+  padding-top: 0.06em;
+}
+.nome .l {
+  display: inline-block;
+}
+.ast {
+  display: block;
+  flex: none;
+  width: 0.29em;
+  height: 0.29em;
+  margin: 0.2em 0 0 0.06em; /* alto como expoente, na altura das maiúsculas */
+}
+.ast-svg {
+  width: 100%;
+  height: 100%;
+  animation: gira 48s linear infinite;
+}
+@keyframes gira {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hero-lado {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: calc(var(--nome) * 0.19); /* alinha a base do botão à linha de base do nome */
+}
+.lead {
+  margin: 0;
+  font-size: var(--texto-hero);
+  font-weight: 460;
+  line-height: 1.24;
+  letter-spacing: -0.012em;
+  color: var(--creme);
+  text-shadow: var(--sombra-texto);
+  white-space: nowrap;
+}
+.lead .ln {
+  display: block;
+  overflow: hidden;
+}
+.lead.solto .ln {
+  overflow: visible; /* depois da entrada, a sombra do texto não pode ser cortada */
+}
+.lead .ln > span {
+  display: block;
+}
+
+.dica {
+  position: absolute;
+  left: 50%;
+  bottom: 2.6svh;
+  margin: 0;
+  transform: translateX(-50%);
+  font-size: var(--mono-sm);
+  color: var(--creme);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  text-shadow: 0 1px 10px rgba(20, 35, 58, 0.4);
+}
+
+/* muro de nuvens e véu da saída */
+.c-muro {
+  transform: translateY(120%);
+}
+.veu {
+  background: var(--creme-2);
+  opacity: 0;
+}
+
+/* pausa deriva, flutuação e giro com o hero fora da tela */
+.parado .nuvem,
+.parado .ilha-flutua,
+.parado .ast-svg {
+  animation-play-state: paused;
+}
+
+/* celular */
+@media (max-width: 760px) {
+  .hero {
+    height: 185svh;
+  }
+  .c-ilha,
+  .c-ilha > .camada-in {
+    transform-origin: 50% 32%;
+  }
+  .ilha {
+    left: 50%;
+    top: 32%;
+    width: 98vw;
+  }
+  .faixa-h {
+    top: 58%;
+  }
+  .hud p {
+    top: 72px;
+  }
+  .hero-grade {
+    grid-template-columns: 1fr;
+    row-gap: 14px;
+    padding-bottom: 22px;
+  }
+  .hero-lado {
+    gap: 18px;
+    margin-bottom: 0;
+  }
+  .dica {
+    display: none;
+  }
+  .sombra-pinta {
+    background:
+      radial-gradient(80% 26% at 26% 86%, rgba(22, 36, 60, 0.4), rgba(22, 36, 60, 0.2) 50%, rgba(22, 36, 60, 0)),
+      linear-gradient(0deg, rgba(22, 36, 60, 0.32), rgba(22, 36, 60, 0.14) 24%, rgba(22, 36, 60, 0) 46%);
+  }
+}
+
+/* movimento reduzido: hero parado, inteiro, desfazendo em creme 2 */
+.rm .hero {
+  height: auto;
+}
+.rm .palco {
+  position: relative;
+  -webkit-mask-image: linear-gradient(180deg, #000 94%, transparent);
+  mask-image: linear-gradient(180deg, #000 94%, transparent);
+}
+.rm .nuvem,
+.rm .ilha-flutua,
+.rm .ast-svg {
+  animation: none;
+}
+.rm .c-muro,
+.rm .veu {
+  display: none;
+}
